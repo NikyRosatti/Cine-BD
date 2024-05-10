@@ -4,23 +4,21 @@
 Este proyecto es un sistema de gestión de cine desarrollado en Java como parte de un trabajo práctico integrador de la asignatura de Base de Datos. El sistema está diseñado para gestionar las operaciones básicas de un cine, como la reserva y venta de entradas, la administración de películas y salas, y la gestión de clientes.
 
 ## Funcionalidades Principales
-* Gestión de Películas: Permite agregar, modificar y eliminar información sobre películas, incluyendo título, género, duración, etc.
+* Gestión de Cines: Permite agregar, modificar, listar y eliminar información sobre cines, incluyendo nombre, dirección y teléfono.
 * Gestión de Salas: Permite administrar las salas de cine, asignando películas a proyectarse en cada una, configurando la capacidad de la sala, etc.
 
 ## Tecnologías Utilizadas
 * Java
-* Base de Datos (mencionar el sistema de gestión de base de datos utilizado)
-* [Otras tecnologías o herramientas utilizadas]
+* Base de Datos (MySQL Workbench)
 
 ## Integrantes del Proyecto
-*Nicolle Rosatti*
-*Joaquin Tissera*
-*Tomas Rodeghiero*
+· *Nicolle Rosatti*
+· *Joaquin Tissera*
+· *Tomas Rodeghiero*
 
 ## Profesores
-El trabajo fue realizado bajo la supervisión de los siguientes profesores:
+El trabajo fue realizado bajo la supervisión del profesor:
 * Fabio Zorzan
-* Guillermo Fraschetti
 
 ## Año de Creación
 El proyecto fue creado en 2024.
