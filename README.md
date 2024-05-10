@@ -12,9 +12,11 @@ Este proyecto es un sistema de gestión de cine desarrollado en Java como parte 
 * Base de Datos (MySQL Workbench)
 
 ## Integrantes del Proyecto
-· *Nicolle Rosatti*
-· *Joaquin Tissera*
-· *Tomas Rodeghiero*
+**Nicolle Rosatti**
+
+**Joaquin Tissera**
+
+**Tomas Rodeghiero**
 
 ## Profesores
 El trabajo fue realizado bajo la supervisión del profesor:
@@ -41,11 +43,20 @@ Para instalar y utilizar el proyecto, sigue estos pasos:
 
 2. Compilación:
     ```bash
-    mvn compile
+    // Donde esté la clase main
+    javac nombrearchivo.java
 
 3. Ejecución:
     ```bash
-    java -jar nombrearchivo.jar
+    // Donde esté la clase compilada
+    java nombrearchivo
 
-## Contribuciones y Contacto
+## Contribuciones
 Este proyecto es de código abierto.
+
+## Contactos
+**Nicolle Rosatti: __nicollerosatti@gmail.com__**
+
+**Joaquin Tissera: __joaco.tissera@gmail.com__**
+
+**Tomas Rodeghiero: __tomyrodeghiero@gmail.com__**
