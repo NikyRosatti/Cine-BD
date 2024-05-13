@@ -1,7 +1,7 @@
 # Sistema de Gestión de Cine - Trabajo Práctico Integrador de Base de Datos
 
 ## Descripción
-Este proyecto es un sistema de gestión de cine desarrollado en Java como parte de un trabajo práctico integrador de la asignatura de Base de Datos. El sistema está diseñado para gestionar las operaciones básicas de un cine, como la reserva y venta de entradas, la administración de películas y salas, y la gestión de clientes.
+Este proyecto es un sistema de gestión de cines desarrollado en Java como parte de un trabajo práctico integrador de la asignatura de Base de Datos. El sistema está diseñado para gestionar las operaciones básicas de un cine, la administración de películas y salas, y demas gestiones.
 
 ## Funcionalidades Principales
 * Gestión de Cines: Permite agregar, modificar, listar y eliminar información sobre cines, incluyendo nombre, dirección y teléfono.
