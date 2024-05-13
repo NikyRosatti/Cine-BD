@@ -1,26 +1,27 @@
-import java.conexion.Conexion;
+import conexion.Conexion;
 import java.util.Scanner;
+import java.sql.*;
 
 public class Main {
   public static void main(String[] args) {
         Conexion conexion = new Conexion("complejo_cines");
         conexion.conectar();
-        principalDriver();
+        principalDriver(conexion);
         conexion.desconectar();
     }
 
-    private static void principalDriver() {
+    private static void principalDriver(Conexion conexion) {
         int resEntry;
         do {
-          mostrarMenu();
-          resEntry = pedirEntrada();
-          if (resEntry < 1 || resEntry > 8) {
-              System.out.println("Debe ser una opción del 1 al 8");
-          } else {
-              opcionSeleccionada(resEntry);
-              switch (resEntry) {
+            mostrarMenu();
+            resEntry = pedirEntrada();
+            if (resEntry < 1 || resEntry > 8) {
+                System.out.println("Debe ser una opción del 1 al 8");
+            } else {
+                opcionSeleccionada(resEntry);
+                switch (resEntry) {
                 case 1:
-                  insertarCine();
+                  insertarCine(conexion);
                   break;
                 case 2:
                   insertarSalaEnCine();
@@ -35,13 +36,13 @@ public class Main {
                   listarActoresYDirectores();
                   break;
                 case 6:
-                  listarCinesCantButacas();
+                  listarCinesCantButacas(conexion);
                   break;
                 case 7:
                   consultasPropias();
                   break;
-              }
-          }
+                }
+            }
         } while (resEntry != 8);
     }
 
@@ -92,9 +93,40 @@ public class Main {
           break;
       }
     }
-
-    private static void insertarCine() {
-        
+    private static void insertarCine(Conexion conexion) {
+        // Solicita el nombre del cine
+        System.out.println("Insertar nombre del cine: ");
+        Scanner scanner = new Scanner(System.in);
+        String nombreCine = scanner.nextLine();
+    
+        // Solicita la direccion del cine
+        System.out.println("Insertar direccion del cine: ");
+        String direccionCine = scanner.nextLine();
+    
+        // Solicita un telefono del cine
+        System.out.println("Insertar telefono del cine: ");
+        String telefonoCine = scanner.nextLine();
+    
+        // Preparamos la consulta SQL
+        String consulta = "INSERT INTO cine (nombre, direccion, telefono) VALUES (?, ?, ?)";
+    
+        // Preparamos la consulta de inserción de datos
+        try (PreparedStatement statement = conexion.prepareStatement(consulta)) {
+            // Establecer los valores de los parámetros
+            statement.setString(1, nombreCine);
+            statement.setString(2, direccionCine);
+            statement.setString(3, telefonoCine);
+    
+            // Ejecuta la consulta de inserción
+            int filasInsertadas = statement.executeUpdate();
+            if (filasInsertadas > 0) {
+                System.out.println("Se ha insertado el cine correctamente.");
+            } else {
+                System.out.println("No se ha podido insertar ningún cine");
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al insertar datos: " + e.getMessage());
+        }
     }
 
     private static void insertarSalaEnCine() {
@@ -113,7 +145,24 @@ public class Main {
         
     }
 
-    private static void listarCinesCantButacas() {
+    private static void listarCinesCantButacas(Conexion conexion) {
+        String consulta = "SELECT * FROM cine";
+
+        try (PreparedStatement statement = conexion.prepareStatement(consulta)) {
+            // Ejecutamos directamente la query, ya que queremos recuperar datos de la bd.
+            ResultSet resultSet = statement.executeQuery();
+            // Devuelve un conjunto de resultados
+
+                // Procesar el ResultSet
+                while (resultSet.next()) {
+                    // Queremos solo el 'nombre' del cine
+                    String nombre = resultSet.getString("nombre");
+                    System.out.println("Nombre: " + nombre);
+                }
+            
+        } catch (SQLException e) {
+            System.out.println("Error al listar datos: " + e.getMessage());
+        }
         
     }
 
