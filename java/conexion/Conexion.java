@@ -1,4 +1,4 @@
-package Conexion;
+package java.conexion.Conexion;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -27,7 +27,6 @@ public class Conexion {
             System.out.println("No se pudo conectar a la base de datos " + bd);
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
         return cx;
     }
 
@@ -37,14 +36,5 @@ public class Conexion {
         } catch (SQLException ex) {
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
         }
-    
     }
-
-    public static void main(String[] args) {
-        Conexion conexion = new Conexion("complejo_cines");
-        conexion.conectar();
-        conexion.desconectar();
-    }
-
-
 }
