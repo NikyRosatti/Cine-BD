@@ -1,6 +1,8 @@
-import conexion.Conexion;
-import java.util.Scanner;
 import java.sql.*;
+import java.util.Scanner;
+import java.math.BigDecimal;
+
+import conexion.Conexion;
 
 public class Main {
   public static void main(String[] args) {
@@ -24,22 +26,22 @@ public class Main {
                   insertarCine(conexion);
                   break;
                 case 2:
-                  insertarSalaEnCine();
+                  insertarSalaEnCine(conexion);
                   break;
                 case 3:
-                  listarCinesInfoPeliculas();
+                  listarCinesInfoPeliculas(conexion);
                   break;
                 case 4:
-                  actoresUnaPelícula();
+                  actoresUnaPelícula(conexion);
                   break;
                 case 5:
-                  listarActoresYDirectores();
+                  listarActoresYDirectores(conexion);
                   break;
                 case 6:
                   listarCinesCantButacas(conexion);
                   break;
                 case 7:
-                  consultasPropias();
+                  consultasPropias(conexion);
                   break;
                 }
             }
@@ -129,44 +131,123 @@ public class Main {
         }
     }
 
-    private static void insertarSalaEnCine() {
-        
+    private static void insertarSalaEnCine(Conexion conexion) {
+      System.out.println("Insertar id de la sala: ");
+      Scanner scanner = new Scanner(System.in);
+      int idSala = scanner.nextInt();
+      scanner.nextLine();
+      System.out.println("Insertar cantidad de butacas: ");
+      int cantButacas = scanner.nextInt();
+      scanner.nextLine();
+      System.out.println("Insertar nombre del cine: ");
+      String nombreCine = scanner.nextLine();
+
+      String consulta = "INSERT INTO sala (id, cant_butacas, nombre_cine) VALUES (?, ?, ?)";
+      try (PreparedStatement statement = conexion.prepareStatement(consulta)) {
+          statement.setInt(1, idSala);
+          statement.setInt(2, cantButacas);
+          statement.setString(3, nombreCine);
+          int filasInsertadas = statement.executeUpdate();
+          if (filasInsertadas > 0) {
+              System.out.println("Se ha insertado la sala correctamente.");
+          } else {
+              System.out.println("No se ha podido insertar ninguna sala");
+          }
+      } catch (SQLException e) {
+          System.out.println("Error al insertar datos: " + e.getMessage());
+      }
     }
 
-    private static void listarCinesInfoPeliculas() {
-        
+    private static void listarCinesInfoPeliculas(Conexion conexion) {
+      String consulta = "SELECT cine.nombre, cine.direccion, cine.telefono, sala.id, sala.cant_butacas " +
+                        "FROM cine " +
+                        "LEFT JOIN sala ON cine.nombre = sala.nombre_cine";
+      try (PreparedStatement statement = conexion.prepareStatement(consulta)) {
+          ResultSet resultSet = statement.executeQuery();
+          while (resultSet.next()) {
+              String nombreCine = resultSet.getString("nombre");
+              String direccion = resultSet.getString("direccion");
+              String telefono = resultSet.getString("telefono");
+              int idSala = resultSet.getInt("id");
+              int cantButacas = resultSet.getInt("cant_butacas");
+
+              System.out.println("Cine: " + nombreCine + ", Dirección: " + direccion + ", Teléfono: " + telefono);
+              System.out.println("  Sala ID: " + idSala + ", Cantidad de Butacas: " + cantButacas);
+          }
+      } catch (SQLException e) {
+          System.out.println("Error al listar datos: " + e.getMessage());
+      }
     }
 
-    private static void actoresUnaPelícula() {
-        
-    }
-
-    private static void listarActoresYDirectores() {
-        
-    }
-
-    private static void listarCinesCantButacas(Conexion conexion) {
-        String consulta = "SELECT * FROM cine";
-
+    private static void actoresUnaPelícula(Conexion conexion) {
+        String consulta = "SELECT nombre FROM actor WHERE nombre IN (" +
+                          "SELECT nombre FROM es_protagonista GROUP BY nombre HAVING COUNT(id) = 1" +
+                          " UNION " +
+                          "SELECT nombre FROM es_reparto GROUP BY nombre HAVING COUNT(id) = 1)";
         try (PreparedStatement statement = conexion.prepareStatement(consulta)) {
-            // Ejecutamos directamente la query, ya que queremos recuperar datos de la bd.
             ResultSet resultSet = statement.executeQuery();
-            // Devuelve un conjunto de resultados
-
-                // Procesar el ResultSet
-                while (resultSet.next()) {
-                    // Queremos solo el 'nombre' del cine
-                    String nombre = resultSet.getString("nombre");
-                    System.out.println("Nombre: " + nombre);
-                }
-            
+            while (resultSet.next()) {
+                String nombre = resultSet.getString("nombre");
+                System.out.println("Actor: " + nombre);
+            }
         } catch (SQLException e) {
             System.out.println("Error al listar datos: " + e.getMessage());
         }
-        
     }
 
-    private static void consultasPropias() {
-        
+    private static void listarActoresYDirectores(Conexion conexion) {
+        String consulta = "SELECT nombre FROM persona WHERE nombre IN (" +
+                          "SELECT nombre FROM actor) AND nombre IN (" +
+                          "SELECT nombre FROM director)";
+        try (PreparedStatement statement = conexion.prepareStatement(consulta)) {
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                String nombre = resultSet.getString("nombre");
+                System.out.println("Persona: " + nombre);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al listar datos: " + e.getMessage());
+        }
+    }
+
+    private static void listarCinesCantButacas(Conexion conexion) {
+        String consulta = "SELECT cine.nombre, SUM(sala.cant_butacas) AS total_butacas " +
+                          "FROM cine " +
+                          "LEFT JOIN sala ON cine.nombre = sala.nombre_cine " +
+                          "GROUP BY cine.nombre";
+        try (PreparedStatement statement = conexion.prepareStatement(consulta)) {
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                String nombreCine = resultSet.getString("nombre");
+                int totalButacas = resultSet.getInt("total_butacas");
+                System.out.println("Cine: " + nombreCine + ", Total de Butacas: " + totalButacas);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al listar datos: " + e.getMessage());
+        }
+    }
+
+    private static void consultasPropias(Conexion conexion) {
+        // Consultas adicionales
+        String consulta = "SELECT * FROM pelicula WHERE calificacion > 4.0";
+        try (PreparedStatement statement = conexion.prepareStatement(consulta)) {
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String genero = resultSet.getString("genero");
+                String idiomaOriginal = resultSet.getString("idioma_original");
+                String url = resultSet.getString("url");
+                String duracion = resultSet.getString("duracion");
+                BigDecimal calificacion = resultSet.getBigDecimal("calificacion");
+                Date fechaEstreno = resultSet.getDate("fecha_estreno_Argentina");
+                String resumen = resultSet.getString("resumen");
+
+                System.out.println("ID: " + id + ", Género: " + genero + ", Idioma Original: " + idiomaOriginal);
+                System.out.println("URL: " + url + ", Duración: " + duracion + ", Calificación: " + calificacion);
+                System.out.println("Fecha de Estreno en Argentina: " + fechaEstreno + ", Resumen: " + resumen);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al listar datos: " + e.getMessage());
+        }
     }
 }
