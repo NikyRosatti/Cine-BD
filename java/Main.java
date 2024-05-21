@@ -5,8 +5,11 @@ import java.math.BigDecimal;
 import conexion.Conexion;
 
 public class Main {
-  public static void main(String[] args) {
-        Conexion conexion = new Conexion("complejo_cines");
+    public static void main(String[] args) throws IOException {
+        Properties prop = new Properties();
+        prop.load(Main.class.getClassLoader().getResourceAsStream("configuration.properties"));
+        // Conexion pasando el archivo .properties con la configuracion respectiva.
+        Conexion conexion = new Conexion("complejo_cines", prop);
         conexion.conectar();
         principalDriver(conexion);
         conexion.desconectar();
