@@ -1,4 +1,0 @@
-# Configuracion de la base de datos
-db.url = complejos_cine
-db.user="root"
-db.password=""
