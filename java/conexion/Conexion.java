@@ -9,16 +9,19 @@ import java.util.logging.Logger;
 
 public class Conexion {
     String bd = "complejo_cines";
-    String url = "jdbc:mysql://localhost/";
-    String user = "admin";
-    String password = " ";
+    String url;
+    String user;
+    String password;
     String driver = "com.mysql.cj.jdbc.Driver";
     Connection cx;
 
-    public Conexion(String bd) {
+    public Conexion(String bd, Properties configuration) {
         this.bd = bd;
+        this.url = configuration.getProperty("db.url= ");
+        this.user = configuration.getProperty("db.user= ");
+        this.password = configuration.getProperty("db.password= ");
     }
-
+    
     public Connection conectar() {
         try {
             Class.forName(driver);
