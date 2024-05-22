@@ -1,5 +1,7 @@
 import java.sql.*;
+import java.io.IOException;
 import java.util.Scanner;
+import java.util.Properties;
 import java.math.BigDecimal;
 
 import conexion.Conexion;
@@ -32,7 +34,7 @@ public class Main {
                   insertarSalaEnCine(conexion);
                   break;
                 case 3:
-                  listarCinesInfoPeliculas(conexion);
+                  listarCinesInfoSalas(conexion);
                   break;
                 case 4:
                   actoresUnaPelícula(conexion);
@@ -161,7 +163,7 @@ public class Main {
       }
     }
 
-    private static void listarCinesInfoPeliculas(Conexion conexion) {
+    private static void listarCinesInfoSalas(Conexion conexion) {
       String consulta = "SELECT cine.nombre, cine.direccion, cine.telefono, sala.id, sala.cant_butacas " +
                         "FROM cine " +
                         "LEFT JOIN sala ON cine.nombre = sala.nombre_cine";
