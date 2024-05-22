@@ -4,7 +4,25 @@ CREATE DATABASE IF NOT EXISTS complejo_cines;
 -- Usar la base de datos
 USE complejo_cines;
 
--- Tabla de cines
+CREATE TABLE IF NOT EXISTS pelicula (
+	id INT NOT NULL PRIMARY KEY,
+    genero ENUM('Acción', 'Aventura', 'Comedia', 'Drama', 'Ciencia ficción', 'Fantasía', 
+				'Terror', 'Suspense', 'Romance', 'Animación', 'Crimen', 'Misterio', 'Documental',
+                'Musical', 'Guerra', 'Biografía', 'Histórica', 'Western', 'Cine negro', 'Superhéroes',
+                'Deportes', 'Familiar', 'Infantil', 'Experimental', 'Independiente', 'Road movie', 
+                'Cine de arte', 'Cine del Oeste', 'Cine erótico', 'Cine político', 'Cine social', 
+                'Cine de autor', 'Cine experimental', 'Cine de culto', 'Cine de animación para adultos'),
+	idioma_original VARCHAR(255) NOT NULL,
+    url TEXT,
+    duracion TIME,
+    calificacion DECIMAL(2,1), -- calificacion del 0.0 a 5.0
+    fecha_estreno_Argentina DATE,
+    resumen TEXT,
+    titulo_distribucion TEXT,
+    titulo_original TEXT,
+    titulo_espaniol TEXT
+);
+
 CREATE TABLE IF NOT EXISTS cine (
     nombre VARCHAR(255) NOT NULL PRIMARY KEY,
     direccion VARCHAR(255) NOT NULL,
@@ -24,22 +42,6 @@ CREATE TABLE IF NOT EXISTS funcion (
     hora_comienzo TIME,
     id_sala INT, 
     FOREIGN KEY (id_sala) REFERENCES sala(id)
-);
-
-CREATE TABLE IF NOT EXISTS pelicula (
-	id INT NOT NULL PRIMARY KEY,
-    genero ENUM('Acción', 'Aventura', 'Comedia', 'Drama', 'Ciencia ficción', 'Fantasía', 
-				'Terror', 'Suspense', 'Romance', 'Animación', 'Crimen', 'Misterio', 'Documental',
-                'Musical', 'Guerra', 'Biografía', 'Histórica', 'Western', 'Cine negro', 'Superhéroes',
-                'Deportes', 'Familiar', 'Infantil', 'Experimental', 'Independiente', 'Road movie', 
-                'Cine de arte', 'Cine del Oeste', 'Cine erótico', 'Cine político', 'Cine social', 
-                'Cine de autor', 'Cine experimental', 'Cine de culto', 'Cine de animación para adultos'),
-	idioma_original VARCHAR(255) NOT NULL,
-    url TEXT,
-    duracion TIME,
-    calificacion DECIMAL(2,1), -- calificacion del 0.0 a 5.0
-    fecha_estreno_Argentina DATE,
-    resumen TEXT
 );
 
 CREATE TABLE IF NOT EXISTS pais (
@@ -77,6 +79,7 @@ CREATE TABLE IF NOT EXISTS reparto (
 CREATE TABLE IF NOT EXISTS origen_produccion (
 	id INT NOT NULL,
     nombre VARCHAR(255) NOT NULL,
+    anio INT CHECK (anio > 1894 AND anio < 2025),
     PRIMARY KEY (id, nombre),
     FOREIGN KEY (id) REFERENCES pelicula(id),
     FOREIGN KEY (nombre) REFERENCES pais(nombre)
@@ -90,15 +93,13 @@ CREATE TABLE IF NOT EXISTS dirige (
     FOREIGN KEY (nombre) REFERENCES director(nombre)
 );
 
-
-CREATE TABLE IF NOT EXISTS es_protagonista (
+CREATE TABLE IF NOT EXISTS proyecta (
 	id INT NOT NULL,
-    nombre VARCHAR(255) NOT NULL,
-    PRIMARY KEY (id, nombre),
+    codigo_funcion INT NOT NULL,
+    PRIMARY KEY (id, codigo_funcion),
     FOREIGN KEY (id) REFERENCES pelicula(id),
-    FOREIGN KEY (nombre) REFERENCES protagonista(nombre)
+    FOREIGN KEY (codigo_funcion) REFERENCES funcion(codigo)
 );
-
 
 CREATE TABLE IF NOT EXISTS es_reparto (
 	id INT NOT NULL,
@@ -108,14 +109,12 @@ CREATE TABLE IF NOT EXISTS es_reparto (
     FOREIGN KEY (nombre) REFERENCES reparto(nombre)
 );
 
-
-
-CREATE TABLE IF NOT EXISTS proyecta (
+CREATE TABLE IF NOT EXISTS es_protagonista (
 	id INT NOT NULL,
-    codigo_funcion INT NOT NULL,
-    PRIMARY KEY (id, codigo_funcion),
+    nombre VARCHAR(255) NOT NULL,
+    PRIMARY KEY (id, nombre),
     FOREIGN KEY (id) REFERENCES pelicula(id),
-    FOREIGN KEY (codigo_funcion) REFERENCES funcion(codigo)
+    FOREIGN KEY (nombre) REFERENCES protagonista(nombre)
 );
 
 -- Crear el trigger

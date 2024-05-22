@@ -1,4 +1,11 @@
 -- Insertar datos en las tablas
+
+-- Tabla de películas
+INSERT INTO pelicula (id, genero, idioma_original, url, duracion, calificacion, fecha_estreno_Argentina, resumen, titulo_distribucion, titulo_original, titulo_espaniol) VALUES
+(1, 'Aventura', 'Inglés', 'https://www.ejemplo.com/pelicula1', '02:30:00', 4.5, '2024-05-10', 'Una película de aventuras', 'AventuraTime', 'Time to adventime', 'Hora de Aventiempo'),
+(2, 'Comedia', 'Español', 'https://www.ejemplo.com/pelicula2', '01:45:00', 3.8, '2024-05-11', 'Una comedia divertida', 'FunTime', 'Time to Funtime', 'Hora de Divertiempo'),
+(3, 'Drama', 'Francés', 'https://www.ejemplo.com/pelicula3', '02:15:00', 4.2, '2024-05-10', 'Un drama emocionante', 'DramaTime', 'Time to Dramatime', 'Hora de Dramatiempo');
+
 -- Tabla de cines
 INSERT INTO cine (nombre, direccion, telefono) VALUES
 ('CineCity', 'Calle Principal 123', 123456789),
@@ -19,12 +26,6 @@ INSERT INTO funcion (codigo, fecha, hora_comienzo, id_sala) VALUES
 (3, '2024-05-10', '14:00:00', 2),
 (4, '2024-05-10', '18:00:00', 3),
 (5, '2024-05-11', '19:00:00', 4);
-
--- Tabla de películas
-INSERT INTO pelicula (id, genero, idioma_original, url, duracion, calificacion, fecha_estreno_Argentina, resumen) VALUES
-(1, 'Aventura', 'Inglés', 'https://www.ejemplo.com/pelicula1', '02:30:00', 4.5, '2024-05-10', 'Una película de aventuras'),
-(2, 'Comedia', 'Español', 'https://www.ejemplo.com/pelicula2', '01:45:00', 3.8, '2024-05-11', 'Una comedia divertida'),
-(3, 'Drama', 'Francés', 'https://www.ejemplo.com/pelicula3', '02:15:00', 4.2, '2024-05-10', 'Un drama emocionante');
 
 -- Tabla de países
 INSERT INTO pais (nombre) VALUES
@@ -63,27 +64,16 @@ INSERT INTO reparto (nombre) VALUES
 ('Jean-Paul Belmondo');
 
 -- Tabla de origen de producción
-INSERT INTO origen_produccion (id, nombre) VALUES
-(1, 'Estados Unidos'),
-(2, 'España'),
-(3, 'Francia');
+INSERT INTO origen_produccion (id, nombre, anio) VALUES
+(1, 'Estados Unidos', 1985),
+(2, 'España', 2010),
+(3, 'Francia', 2024);
 
 -- Tabla de dirección
 INSERT INTO dirige (id, nombre) VALUES
 (1, 'Steven Spielberg'),
 (2, 'Pedro Almodóvar'),
 (3, 'Jean-Luc Godard');
-
-
--- Tabla de protagonismo
-INSERT INTO es_protagonista (id, nombre) VALUES
-(1, 'Tom Hanks'),
-(2, 'Penélope Cruz'),
-(3, 'Tom Hanks');
-
--- Tabla de reparto
-INSERT INTO es_reparto (id, nombre) VALUES
-(3, 'Jean-Paul Belmondo');
 
 -- Tabla de proyecciones
 INSERT INTO proyecta (id, codigo_funcion) VALUES
@@ -92,3 +82,14 @@ INSERT INTO proyecta (id, codigo_funcion) VALUES
 (2, 3),
 (3, 4),
 (3, 5);
+
+-- Tabla de reparto
+INSERT INTO es_reparto (id, nombre) VALUES
+(3, 'Jean-Paul Belmondo');
+
+-- Tabla de protagonismo
+INSERT INTO es_protagonista (id, nombre) VALUES
+(1, 'Tom Hanks'),
+(2, 'Penélope Cruz'),
+(3, 'Tom Hanks');
+
