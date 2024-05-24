@@ -1,10 +1,12 @@
 -- Insertar datos en las tablas
 
 -- Tabla de películas
-INSERT INTO pelicula (id, genero, idioma_original, url, duracion, calificacion, fecha_estreno_Argentina, resumen, titulo_distribucion, titulo_original, titulo_espaniol) VALUES
-(1, 'Aventura', 'Inglés', 'https://www.ejemplo.com/pelicula1', '02:30:00', 4.5, '2024-05-10', 'Una película de aventuras', 'AventuraTime', 'Time to adventime', 'Hora de Aventiempo'),
-(2, 'Comedia', 'Español', 'https://www.ejemplo.com/pelicula2', '01:45:00', 3.8, '2024-05-11', 'Una comedia divertida', 'FunTime', 'Time to Funtime', 'Hora de Divertiempo'),
-(3, 'Drama', 'Francés', 'https://www.ejemplo.com/pelicula3', '02:15:00', 4.2, '2024-05-10', 'Un drama emocionante', 'DramaTime', 'Time to Dramatime', 'Hora de Dramatiempo');
+INSERT INTO pelicula 
+(id, genero, idioma_original, url, duracion, calificacion, fecha_estreno_Argentina, resumen, titulo_distribucion, titulo_original, titulo_espaniol) 
+VALUES
+(1, 'Aventura', 'Inglés', 'https://www.ejemplo.com/pelicula1', '02:30:00', 4.5, '2024-05-10', 'Una película de aventuras', 'AventuraTime', 'TIME TO ADVENTIME', 'Hora de Aventiempo'),
+(2, 'Comedia', 'Español', 'https://www.ejemplo.com/pelicula2', '01:45:00', 3.8, '2024-05-11', 'Una comedia divertida', 'FunTime', 'TIME TO FUNTIME', 'Hora de Divertiempo'),
+(3, 'Drama', 'Francés', 'https://www.ejemplo.com/pelicula3', '02:15:00', 4.2, '2024-05-10', 'Un drama emocionante', 'DramaTime', 'TIME TO DRAMATIME', 'Hora de Dramatiempo');
 
 -- Tabla de cines
 INSERT INTO cine (nombre, direccion, telefono) VALUES
@@ -92,4 +94,3 @@ INSERT INTO es_protagonista (id, nombre) VALUES
 (1, 'Tom Hanks'),
 (2, 'Penélope Cruz'),
 (3, 'Tom Hanks');
-
