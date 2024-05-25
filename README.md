@@ -12,8 +12,8 @@ Este proyecto es un sistema de gestión de cines desarrollado en Java como parte
 
 ## Tecnologías Utilizadas
 * **Lenguaje de Programación:** Java
-* **Base de Datos:** MySQL y PostgreSQL
-* **Herramientas de Desarrollo:** MySQL Workbench y pgAdmin
+* **Base de Datos:** MySQL
+* **Herramientas de Desarrollo:** MySQL Workbench
 
 ## Profesores
 El trabajo fue realizado bajo la supervisión de los profesores:
@@ -27,8 +27,6 @@ El trabajo fue realizado bajo la supervisión de los profesores:
 * **Tissera, Joaquín Pablo**
 * **Rodeghiero, Tomás**
 
-
-
 ## Año de Creación
 El proyecto fue creado en el año 2024.
 
@@ -37,7 +35,7 @@ El proyecto fue creado en el año 2024.
 ### Instalación
 1. Clonar el repositorio del proyecto:
    ```bash
-   git clone <url del repositorio>
+   git clone https://github.com/NikyRosatti/Cine-BD.git
    ```
 
 2. Navegar al directorio del proyecto y actualizar el repositorio:
@@ -61,63 +59,26 @@ El proyecto fue creado en el año 2024.
    -- (Agrega aquí las definiciones de las tablas)
    ```
 
-2. Configura la conexión en tu archivo Java:
-   ```java
-   // Ejemplo de configuración de conexión para MySQL
-   String url = "jdbc:mysql://localhost:3306/complejo_cines";
-   String user = "root";
-   String password = "password";
-   ```
-
-#### PostgreSQL
-1. Crea la base de datos y las tablas necesarias:
-   ```sql
-   -- Crear la base de datos
-   CREATE DATABASE complejo_cines;
-
-   -- Conectarse a la base de datos
-   \c complejo_cines
-
-   -- Crear las tablas
-   -- (Agrega aquí las definiciones de las tablas)
-   ```
-
-2. Configura la conexión en tu archivo Java:
-   ```java
-   // Ejemplo de configuración de conexión para PostgreSQL
-   String url = "jdbc:postgresql://localhost:5432/complejo_cines";
-   String user = "postgres";
-   String password = "password";
+2. Configura la conexión en tu archivo configuration.properties:
+   ```.properties
+    # Configuracion de la base de datos
+    db.url=jdbc:mysql://localhost/
+    db.user=ElUsuarioDefinidoEnMysqlWorkbench
+    db.password=LaContraseniaElegidaParaLaInstanciaDeMySqlWorkbench
    ```
 
 ### Compilación
 1. Compila los archivos Java:
    ```bash
-   javac -cp .:<path-a-mysql-connector> Main.java
-   javac -cp .:<path-a-postgresql-connector> Main.java
+   cd <directorio-del-repo>/JavaMySql
+   javac Main.java
    ```
 
 ### Ejecución
 1. Ejecuta la aplicación:
    ```bash
-   java -cp .:<path-a-mysql-connector> Main
-   java -cp .:<path-a-postgresql-connector> Main
-   ```
-
-### Ejemplo de Comandos de Git
-1. Agregar archivos modificados:
-   ```bash
-   git add <archivo-modificado>
-   ```
-
-2. Realizar commit con un mensaje representativo:
-   ```bash
-   git commit -m "mensaje representativo"
-   ```
-
-3. Subir cambios al repositorio remoto:
-   ```bash
-   git push
+   cd <directorio-del-repo>/JavaMySql
+   java -classpath .:lib/mysql-connector-j-8.4.0.jar Main
    ```
 
 ## Contribuciones
