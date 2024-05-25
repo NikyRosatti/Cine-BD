@@ -16,13 +16,24 @@ public class Conexion {
     String driver = "com.mysql.cj.jdbc.Driver";
     Connection cx;
 
+    /**
+     * Constructor de la clase Conexion
+     * @param bd el nombre de la base de datos
+     * @param configuration una clase Properties que ya este cargada con los datos de configuracion para esta clase Conexion
+     */
     public Conexion(String bd, Properties configuration) {
         this.bd = bd;
-        this.url = configuration.getProperty("db.url= ");
-        this.user = configuration.getProperty("db.user= ");
-        this.password = configuration.getProperty("db.password= ");
+        this.url = configuration.getProperty("db.url");
+        this.user = configuration.getProperty("db.user");
+        this.password = configuration.getProperty("db.password");
     }
     
+    /**
+     * Da formato a la clase Connection, segun url, bd, user y password
+     * @return la clase Connection en caso que haya sido exitosa la conexion entre la base de datos y el programa
+     * @throws ClassNotFoundException si no se pudo encontrar la clase driver (el .jar)
+     * @throws SQLException si tuvo problemas SQL para conectarse 
+     */
     public Connection conectar() {
         try {
             Class.forName(driver);
@@ -35,7 +46,10 @@ public class Conexion {
         return cx;
     }
 
-
+    /**
+     * Cerrar la clase connection si es que fue abierta
+     * @throws SQLEXception en caso que falle el close()
+     */
     public void desconectar() {
         if (cx != null) {
             try {
@@ -46,7 +60,7 @@ public class Conexion {
         }
     }
 
-    /*
+    /**
      * Este metodo prepara la consulta parametrizada que se solicita realizar.
      *
      * @param consulta
