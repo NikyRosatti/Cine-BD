@@ -1,5 +1,5 @@
 -- Comentar o descomentar segun fuese necesario para hacer pruebas
--- DROP DATABASE complejo_cines;
+DROP DATABASE complejo_cines;
 
 -- Crear la base de datos
 CREATE DATABASE IF NOT EXISTS complejo_cines;
@@ -8,7 +8,10 @@ CREATE DATABASE IF NOT EXISTS complejo_cines;
 USE complejo_cines;
 
 CREATE TABLE IF NOT EXISTS pelicula (
-    id INT NOT NULL PRIMARY KEY,
+	-- Ponemos el id como entero sin signo, de manera tal que va a ser positivo, que es equivalente a hacer:
+	-- CONSTRAINT id_positiva_peliculas CHECK (id > 0)
+    -- Lo hicimos para que la clausura auto_increment funcione correctamente
+    id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     genero ENUM('Acción', 'Aventura', 'Comedia', 'Drama', 'Ciencia ficción', 'Fantasía', 
                 'Terror', 'Suspense', 'Romance', 'Animación', 'Crimen', 'Misterio', 'Documental',
                 'Musical', 'Guerra', 'Biografía', 'Histórica', 'Western', 'Cine negro', 'Superhéroes',
@@ -18,13 +21,12 @@ CREATE TABLE IF NOT EXISTS pelicula (
     idioma_original VARCHAR(255) NOT NULL,
     url TEXT,
     duracion TIME,
-    calificacion DECIMAL(2,1), -- calificacion del 0.0 a 5.0
+    calificacion ENUM('APT', '+13', '+16', '+18', 'C'),
     fecha_estreno_Argentina DATE,
     resumen TEXT,
     titulo_distribucion TEXT,
     titulo_original TEXT,
     titulo_espaniol TEXT,
-    CONSTRAINT id_positiva_peliculas CHECK (id > 0),
     CONSTRAINT titulo_original_uppercase CHECK (titulo_original = UPPER(titulo_original))
 );
 
@@ -35,20 +37,24 @@ CREATE TABLE IF NOT EXISTS cine (
 );
 
 CREATE TABLE IF NOT EXISTS sala (
-    id INT NOT NULL PRIMARY KEY,
+	-- Ponemos el id como entero sin signo, de manera tal que va a ser positivo, que es equivalente a hacer:
+	-- CONSTRAINT id_positiva_salas CHECK (id > 0)
+    -- Lo hicimos para que la clausura auto_increment funcione correctamente
+    id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     cant_Butacas INT NOT NULL,
     nombre_cine VARCHAR(255) NOT NULL,
-    FOREIGN KEY (nombre_cine) REFERENCES cine(nombre),
-    CONSTRAINT id_positiva_salas CHECK (id > 0)
+    FOREIGN KEY (nombre_cine) REFERENCES cine(nombre)
 );
 
 CREATE TABLE IF NOT EXISTS funcion (
-    codigo INT NOT NULL PRIMARY KEY,
+	-- Ponemos el id como entero sin signo, de manera tal que va a ser positivo, que es equivalente a hacer:
+    -- CONSTRAINT codigo_positivo CHECK (codigo > 0)
+    -- Lo hicimos para que la clausura auto_increment funcione correctamente
+    codigo INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     fecha DATE,
     hora_comienzo TIME,
-    id_sala INT, 
-    FOREIGN KEY (id_sala) REFERENCES sala(id),
-    CONSTRAINT codigo_positivo CHECK (codigo > 0)
+    id_sala INT UNSIGNED, 
+    FOREIGN KEY (id_sala) REFERENCES sala(id)
 );
 
 CREATE TABLE IF NOT EXISTS pais (
@@ -83,49 +89,59 @@ CREATE TABLE IF NOT EXISTS reparto (
 );
 
 CREATE TABLE IF NOT EXISTS origen_produccion (
-    id INT NOT NULL,
+	-- Ponemos el id como entero sin signo, de manera tal que va a ser positivo, que es equivalente a hacer:
+    -- CONSTRAINT id_positiva_produccion CHECK (id > 0)
+    -- Lo hicimos para que la clausura auto_increment funcione correctamente
+    id INT UNSIGNED NOT NULL AUTO_INCREMENT,
     nombre VARCHAR(255) NOT NULL,
     anio INT CHECK (anio > 1894 AND anio < 2025),
     PRIMARY KEY (id, nombre),
     FOREIGN KEY (id) REFERENCES pelicula(id),
-    FOREIGN KEY (nombre) REFERENCES pais(nombre),
-    CONSTRAINT id_positiva_produccion CHECK (id > 0)
+    FOREIGN KEY (nombre) REFERENCES pais(nombre)
 );
 
 CREATE TABLE IF NOT EXISTS dirige (
-    id INT NOT NULL,
+	-- Ponemos el id como entero sin signo, de manera tal que va a ser positivo, que es equivalente a hacer:
+    -- CONSTRAINT id_positiva_dirige CHECK (id > 0)
+    -- Lo hicimos para que la clausura auto_increment funcione correctamente
+    id INT UNSIGNED NOT NULL AUTO_INCREMENT,
     nombre VARCHAR(255) NOT NULL,
     PRIMARY KEY (id, nombre),
     FOREIGN KEY (id) REFERENCES pelicula(id),
-    FOREIGN KEY (nombre) REFERENCES director(nombre),
-    CONSTRAINT id_positiva_dirige CHECK (id > 0)
+    FOREIGN KEY (nombre) REFERENCES director(nombre)
 );
 
 CREATE TABLE IF NOT EXISTS proyecta (
-    id INT NOT NULL,
-    codigo_funcion INT NOT NULL,
+	-- Ponemos el id como entero sin signo, de manera tal que va a ser positivo, que es equivalente a hacer:
+    -- CONSTRAINT id_positiva_proyecta CHECK (id > 0)
+    -- Lo hicimos para que la clausura auto_increment funcione correctamente
+    id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    codigo_funcion INT UNSIGNED NOT NULL,
     PRIMARY KEY (id, codigo_funcion),
     FOREIGN KEY (id) REFERENCES pelicula(id),
-    FOREIGN KEY (codigo_funcion) REFERENCES funcion(codigo),
-    CONSTRAINT id_positiva_proyecta CHECK (id > 0)
+    FOREIGN KEY (codigo_funcion) REFERENCES funcion(codigo)
 );
 
 CREATE TABLE IF NOT EXISTS es_reparto (
-    id INT NOT NULL,
+	-- Ponemos el id como entero sin signo, de manera tal que va a ser positivo, que es equivalente a hacer:
+    -- CONSTRAINT id_positiva_reparto CHECK (id > 0)
+    -- Lo hicimos para que la clausura auto_increment funcione correctamente
+    id INT UNSIGNED NOT NULL AUTO_INCREMENT,
     nombre VARCHAR(255) NOT NULL,
     PRIMARY KEY (id, nombre),
     FOREIGN KEY (id) REFERENCES pelicula(id),
-    FOREIGN KEY (nombre) REFERENCES reparto(nombre),
-    CONSTRAINT id_positiva_reparto CHECK (id > 0)
+    FOREIGN KEY (nombre) REFERENCES reparto(nombre)
 );
 
 CREATE TABLE IF NOT EXISTS es_protagonista (
-    id INT NOT NULL,
+	-- Ponemos el id como entero sin signo, de manera tal que va a ser positivo, que es equivalente a hacer:
+    -- CONSTRAINT id_positiva_protagonista CHECK (id > 0)
+    -- Lo hicimos para que la clausura auto_increment funcione correctamente
+    id INT UNSIGNED NOT NULL AUTO_INCREMENT,
     nombre VARCHAR(255) NOT NULL,
     PRIMARY KEY (id, nombre),
     FOREIGN KEY (id) REFERENCES pelicula(id),
-    FOREIGN KEY (nombre) REFERENCES protagonista(nombre),
-    CONSTRAINT id_positiva_protagonista CHECK (id > 0)
+    FOREIGN KEY (nombre) REFERENCES protagonista(nombre)
 );
 
 -- Crear el trigger
@@ -170,10 +186,6 @@ BEGIN
 END;
 //
 DELIMITER ;
-
--- Una de las consideraciones es usar dominio para las calificaciones de las peliculas
--- MySQL no soporta creaciones de dominios, pero en postgre se haria de una manera tal que
--- CREATE DOMAIN dominioCalificaciones AS DECIMAL(2,1) DEFAULT 0 NOT NULL;
 
 CREATE TABLE IF NOT EXISTS auditorias (
 	id INT PRIMARY KEY AUTO_INCREMENT,
