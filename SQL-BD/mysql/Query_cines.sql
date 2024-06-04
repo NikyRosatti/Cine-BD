@@ -15,7 +15,7 @@ INSERT INTO cine (nombre, direccion, telefono) VALUES
 ('CineMax', 'Paseo del Cine 789', 456123789);
 
 -- Tabla de salas
-INSERT INTO sala (id, cant_Butacas, nombre_cine) VALUES
+INSERT INTO sala (id, cant_butacas, nombre_cine) VALUES
 (1, 100, 'CineCity'),
 (2, 120, 'CineCity'),
 (3, 90, 'CineMundo'),

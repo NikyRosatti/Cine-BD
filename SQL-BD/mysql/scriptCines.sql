@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS sala (
 	-- CONSTRAINT id_positiva_salas CHECK (id > 0)
     -- Lo hicimos para que la clausura auto_increment funcione correctamente
     id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    cant_Butacas INT NOT NULL,
+    cant_butacas INT NOT NULL,
     nombre_cine VARCHAR(255) NOT NULL,
     FOREIGN KEY (nombre_cine) REFERENCES cine(nombre)
 );
