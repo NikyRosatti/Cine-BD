@@ -1,0 +1,122 @@
+\documentclass[15pt]{article}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{setspace}
+\usepackage{url}
+\usepackage{xurl}
+\usepackage{caption}
+\usepackage[colorlinks=true, linkcolor=blue, urlcolor=blue] {hyperref}
+
+\begin{document}
+
+\begin{titlepage}
+    \centering
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.35\linewidth]{escudo_unrc.jpg}
+    \end{figure}
+    \vfill
+    
+    \huge
+    \textbf{Proyecto de Bases de Datos}
+    \vspace{0.5cm}
+    
+    \LARGE
+    Trabajo práctico integrador
+    \vspace{1cm}
+
+    \Large
+    Facultad de Ciencias Exactas, Físico-Químicas y Naturales\\
+    Departamento de Computación y Matemática\\
+    \vspace{0.5cm}
+    
+    \vfill
+    \Large
+    \textbf{Nicolle Rosatti, Tomás Rodeghiero, Joaquín Tissera}\\
+    \vspace{0.25cm}
+    Año 2024
+    \vspace{1.5cm}
+\end{titlepage}
+
+\newpage
+
+\section{Inciso 1 y 2}
+    \begin{itemize}
+        \item[1] Diseñar el diagrama de Entidades y Relaciones.
+            \begin{center}
+              \textbf{Diagrama E/R}
+              
+              \textit{Adjuntado a color en las hojas presentadas}
+              \newline
+            \end{center}
+        \item[2] Realizar el pasaje del modelo E-R a Relacional (con claves foráneas).
+            \begin{center}
+                \textbf{Tabulación del modelo E/R}
+            \end{center}
+    \end{itemize}
+\newline
+Pelicula(\underline{\textbf{identificador}}, genero, idioma\_original, url, duración, calificacion, 
+
+fecha\_estreno\_Argentina, resumen, titulo\_distribucion, titulo\_original, 
+
+titulo\_espaniol)
+\newline
+Cine(\underline{\textbf{nombre}}, direccion, telefono)
+\newline
+Sala(\underline{\textbf{identificador}}, cant\_butacas, nombre\_cine)
+
+\hspace{1cm} nombre\_cine Foreing Key a Cine
+\newline
+Funcion(\underline{\textbf{codigo}}, fecha, hora\_comienzo, identificador\_sala)
+
+\hspace{1cm} identificador\_sala Foreing Key a Sala
+\newline
+Pais(\underline{\textbf{nombre}})
+\newline
+Persona(\underline{\textbf{nombre}}, nacionalidad)
+
+\hspace{1cm} Director(\underline{\textbf{nombre}})  nombre  Foreing Key a Persona
+    
+\hspace{1cm} Actor(\underline{\textbf{nombre}})   nombre  Foreing Key a Persona
+    
+\hspace{2cm} Protagonista(\underline{\textbf{nombre}})    nombre  Foreing Key a Actor
+        
+\hspace{2cm} Reparto(\underline{\textbf{nombre}}) nombre  Foreing Key a Actor
+\newline
+\newline
+OrigenProduccion(\underline{\textbf{identificador\_pelicula}}, \underline{\textbf{nombre\_pais}}, anio\_produccion)
+
+\hspace{1cm} identificador\_pelicula	Foreing Key a Pelicula
+
+\hspace{1cm} nombre\_pais	Foreing Key a Pais
+\newline
+Dirige(\underline{\textbf{identificador\_pelicula}}, \underline{\textbf{nombre\_director}})
+
+\hspace{1cm} identificador\_pelicula	Foreing Key a Pelicula
+    
+\hspace{1cm} nombre\_director	Foreing Key a Director
+\newline
+Proyecta(\underline{\textbf{identificador\_pelicula}}, \underline{\textbf{codigo\_funcion}})
+
+\hspace{1cm} identificador\_pelicula	Foreing Key a Pelicula
+    
+\hspace{1cm} codigo\_funcion	Foreing Key a Funcion
+\newline
+EsReparto(\underline{\textbf{identificador\_pelicula}}, \underline{\textbf{nombre\_reparto}})
+
+\hspace{1cm} identificador\_pelicula	Foreing Key a Pelicula
+    
+\hspace{1cm} nombre\_reparto	Foreing Key a Reparto
+\newline
+EsProtagonista(\underline{\textbf{identificador\_pelicula}}, \underline{\textbf{nombre\_protagonista}})
+
+\hspace{1cm} identificador\_pelicula	Foreing Key a Pelicula
+    
+\hspace{1cm} nombre\_protagonista	Foreing Key a Protagonista
+\newline
+\newline
+
+\end{document}
