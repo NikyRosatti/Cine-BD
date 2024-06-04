@@ -190,7 +190,7 @@ DELIMITER ;
 CREATE TABLE IF NOT EXISTS auditorias (
 	id INT PRIMARY KEY AUTO_INCREMENT,
     author VARCHAR(100),
-    table_name_altered VARCHAR(100),
+    attribute_altered VARCHAR(100),
     when_modified TIMESTAMP,
     oldest VARCHAR(100),
     newest VARCHAR(100)
@@ -203,7 +203,7 @@ AFTER INSERT ON pelicula
 FOR EACH ROW
 BEGIN
     INSERT INTO auditorias 
-    (author, table_name_altered, when_modified, oldest, newest)
+    (author, attribute_altered, when_modified, oldest, newest)
     VALUES
     (CURRENT_USER(), 'fecha_estreno_Argentina', NOW(), null, NEW.fecha_estreno_Argentina);
 END;
@@ -217,7 +217,7 @@ AFTER DELETE ON pelicula
 FOR EACH ROW
 BEGIN
     INSERT INTO auditorias 
-    (author, table_name_altered, when_modified, oldest, newest)
+    (author, attribute_altered, when_modified, oldest, newest)
     VALUES
     (CURRENT_USER(), 'fecha_estreno_Argentina', NOW(), OLD.fecha_estreno_Argentina, null);
 END;
@@ -231,7 +231,7 @@ AFTER UPDATE ON pelicula
 FOR EACH ROW
 BEGIN
     INSERT INTO auditorias 
-    (author, table_name_altered, when_modified, oldest, newest)
+    (author, attribute_altered, when_modified, oldest, newest)
     VALUES
     (CURRENT_USER(), 'fecha_estreno_Argentina', NOW(), OLD.fecha_estreno_Argentina, NEW.fecha_estreno_Argentina);
 END;
