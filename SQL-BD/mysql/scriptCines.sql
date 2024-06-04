@@ -160,7 +160,7 @@ DELIMITER ;
 
 -- Crear el trigger
 DELIMITER //
-CREATE TRIGGER after_protaginizar
+CREATE TRIGGER after_protagonizar
 AFTER INSERT ON es_protagonista
 FOR EACH ROW
 BEGIN
