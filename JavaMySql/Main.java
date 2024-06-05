@@ -17,10 +17,11 @@ public class Main {
         prop.load(Main.class.getClassLoader().getResourceAsStream("configuration.properties"));
         // Conexion pasando el archivo .properties con la configuracion respectiva.
         conexion = new Conexion("complejo_cines", prop);
-        conexion.conectar();
-        principalDriver();
-        entryScanner.close();
-        conexion.desconectar();
+        if (conexion.conectar() != null) {
+            principalDriver();
+            entryScanner.close();
+            conexion.desconectar();
+        }
     }
 
     private static void principalDriver() {
@@ -255,9 +256,9 @@ public class Main {
 
     private static void consultasPropias() {
         // Consultas adicionales
-        // Inicio consulta1: Listar las peliculas que tienen calificacion APT
+        // Inicio consulta1: Listar las peliculas que tienen calificacion ATP
         System.out.println("    Consulta1: Listar las peliculas que tienen calificacion Apta para todo Publico");
-        String consulta1 = "SELECT * FROM pelicula WHERE calificacion = 'APT'";
+        String consulta1 = "SELECT * FROM pelicula WHERE calificacion = 'ATP'";
         try (PreparedStatement statement = conexion.prepareStatement(consulta1)) {
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
