@@ -9,17 +9,21 @@ import java.util.Properties;
 import conexion.Conexion;
 
 public class Main {
+    private static Scanner entryScanner = new Scanner(System.in);
+    private static Properties prop;
+    private static Conexion conexion;
     public static void main(String[] args) throws IOException {
-        Properties prop = new Properties();
+        prop = new Properties();
         prop.load(Main.class.getClassLoader().getResourceAsStream("configuration.properties"));
         // Conexion pasando el archivo .properties con la configuracion respectiva.
-        Conexion conexion = new Conexion("complejo_cines", prop);
+        conexion = new Conexion("complejo_cines", prop);
         conexion.conectar();
-        principalDriver(conexion);
+        principalDriver();
+        entryScanner.close();
         conexion.desconectar();
     }
 
-    private static void principalDriver(Conexion conexion) {
+    private static void principalDriver() {
         int resEntry;
         do {
             mostrarMenu();
@@ -31,31 +35,31 @@ public class Main {
                 switch (resEntry) {
                     case 1:
                         // Pedida para el archivo Java
-                        insertarCine(conexion);
+                        insertarCine();
                         break;
                     case 2:
                         // Pedida para el archivo Java
-                        insertarSalaEnCine(conexion);
+                        insertarSalaEnCine();
                         break;
                     case 3:
                         // Pedida para el archivo Java
-                        listarCinesInfoSalas(conexion);
+                        listarCinesInfoSalas();
                         break;
                     case 4:
                         // Resolucion de consultas (No necesariamente Java)
-                        actoresUnaPelícula(conexion);
+                        actoresUnaPelícula();
                         break;
                     case 5:
                         // Resolucion de consultas (No necesariamente Java)
-                        listarActoresYDirectores(conexion);
+                        listarActoresYDirectores();
                         break;
                     case 6:
                         // Resolucion de consultas (No necesariamente Java)
-                        listarCinesCantButacas(conexion);
+                        listarCinesCantButacas();
                         break;
                     case 7:
                         // Resolucion de consultas (No necesariamente Java)
-                        consultasPropias(conexion);
+                        consultasPropias();
                         break;
                 }
             }
@@ -79,7 +83,6 @@ public class Main {
 
     private static int pedirEntrada() {
         System.out.print("Seleccione una opción: ");
-        Scanner entryScanner = new Scanner(System.in);
         String entry = entryScanner.nextLine();
         return Integer.valueOf(entry);
     }
@@ -120,19 +123,18 @@ public class Main {
         }
     }
 
-    private static void insertarCine(Conexion conexion) {
+    private static void insertarCine() {
         // Solicita el nombre del cine
         System.out.println("Insertar nombre del cine: ");
-        Scanner scanner = new Scanner(System.in);
-        String nombreCine = scanner.nextLine();
+        String nombreCine = entryScanner.nextLine();
 
         // Solicita la direccion del cine
         System.out.println("Insertar direccion del cine: ");
-        String direccionCine = scanner.nextLine();
+        String direccionCine = entryScanner.nextLine();
 
         // Solicita un telefono del cine
         System.out.println("Insertar telefono del cine: ");
-        String telefonoCine = scanner.nextLine();
+        String telefonoCine = entryScanner.nextLine();
 
         // Preparamos la consulta SQL
         String consulta = "INSERT INTO cine (nombre, direccion, telefono) VALUES (?, ?, ?)";
@@ -156,16 +158,15 @@ public class Main {
         }
     }
 
-    private static void insertarSalaEnCine(Conexion conexion) {
+    private static void insertarSalaEnCine() {
         System.out.println("Insertar id de la sala: ");
-        Scanner scanner = new Scanner(System.in);
-        int idSala = scanner.nextInt();
-        scanner.nextLine();
+        int idSala = entryScanner.nextInt();
+        entryScanner.nextLine();
         System.out.println("Insertar cantidad de butacas: ");
-        int cantButacas = scanner.nextInt();
-        scanner.nextLine();
+        int cantButacas = entryScanner.nextInt();
+        entryScanner.nextLine();
         System.out.println("Insertar nombre del cine: ");
-        String nombreCine = scanner.nextLine();
+        String nombreCine = entryScanner.nextLine();
 
         String consulta = "INSERT INTO sala (id, cant_butacas, nombre_cine) VALUES (?, ?, ?)";
         try (PreparedStatement statement = conexion.prepareStatement(consulta)) {
@@ -183,7 +184,7 @@ public class Main {
         }
     }
 
-    private static void listarCinesInfoSalas(Conexion conexion) {
+    private static void listarCinesInfoSalas() {
         String consulta = "SELECT cine.nombre, cine.direccion, cine.telefono, sala.id, sala.cant_butacas " +
                 "FROM cine " +
                 "LEFT JOIN sala ON cine.nombre = sala.nombre_cine";
@@ -204,7 +205,7 @@ public class Main {
         }
     }
 
-    private static void actoresUnaPelícula(Conexion conexion) {
+    private static void actoresUnaPelícula() {
         String consulta = "SELECT nombre FROM actor WHERE nombre IN (" +
                 "SELECT nombre FROM es_protagonista GROUP BY nombre HAVING COUNT(id) = 1" +
                 " UNION " +
@@ -220,7 +221,7 @@ public class Main {
         }
     }
 
-    private static void listarActoresYDirectores(Conexion conexion) {
+    private static void listarActoresYDirectores() {
         String consulta = "SELECT nombre FROM persona WHERE nombre IN (" +
                 "SELECT nombre FROM actor) AND nombre IN (" +
                 "SELECT nombre FROM director)";
@@ -235,7 +236,7 @@ public class Main {
         }
     }
 
-    private static void listarCinesCantButacas(Conexion conexion) {
+    private static void listarCinesCantButacas() {
         String consulta = "SELECT cine.nombre, SUM(sala.cant_butacas) AS total_butacas " +
                 "FROM cine " +
                 "LEFT JOIN sala ON cine.nombre = sala.nombre_cine " +
@@ -252,11 +253,11 @@ public class Main {
         }
     }
 
-    private static void consultasPropias(Conexion conexion) {
+    private static void consultasPropias() {
         // Consultas adicionales
-        // Inicio consulta1: Listar las peliculas que tienen calificacion ATP
-        System.out.println("    Consulta1: Listar las peliculas que tienen calificacion Apta para Todo Publico");
-        String consulta1 = "SELECT * FROM pelicula WHERE calificacion = 'ATP'";
+        // Inicio consulta1: Listar las peliculas que tienen calificacion APT
+        System.out.println("    Consulta1: Listar las peliculas que tienen calificacion Apta para todo Publico");
+        String consulta1 = "SELECT * FROM pelicula WHERE calificacion = 'APT'";
         try (PreparedStatement statement = conexion.prepareStatement(consulta1)) {
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
