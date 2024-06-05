@@ -21,6 +21,11 @@ public class Main {
             principalDriver();
             entryScanner.close();
             conexion.desconectar();
+        } else {
+            System.out.println("Las causas de no haberse conectado pueden ser: ");
+            System.out.println("    1) Falta o es incorrecta la contraseña en el archivo configuration.properties");
+            System.out.println("    2) Falta o es incorrecto el usuario en el archivo configuration.properties");
+            System.out.println("    3) No se creó o inicializó la base de datos en MySQL");
         }
     }
 
