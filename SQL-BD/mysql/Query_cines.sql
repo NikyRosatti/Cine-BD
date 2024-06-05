@@ -4,7 +4,7 @@
 INSERT INTO pelicula 
 (id, genero, idioma_original, url, duracion, calificacion, fecha_estreno_Argentina, resumen, titulo_distribucion, titulo_original, titulo_espaniol) 
 VALUES
-(1, 'Aventura', 'Inglés', 'https://www.ejemplo.com/pelicula1', '02:30:00', 'APT', '2024-05-10', 'Una película de aventuras', 'AventuraTime', 'TIME TO ADVENTIME', 'Hora de Aventiempo'),
+(1, 'Aventura', 'Inglés', 'https://www.ejemplo.com/pelicula1', '02:30:00', 'ATP', '2024-05-10', 'Una película de aventuras', 'AventuraTime', 'TIME TO ADVENTIME', 'Hora de Aventiempo'),
 (2, 'Comedia', 'Español', 'https://www.ejemplo.com/pelicula2', '01:45:00', '+13', '2024-05-11', 'Una comedia divertida', 'FunTime', 'TIME TO FUNTIME', 'Hora de Divertiempo'),
 (3, 'Drama', 'Francés', 'https://www.ejemplo.com/pelicula3', '02:15:00', '+16', '2024-05-10', 'Un drama emocionante', 'DramaTime', 'TIME TO DRAMATIME', 'Hora de Dramatiempo');
 
