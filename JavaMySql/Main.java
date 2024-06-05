@@ -254,9 +254,9 @@ public class Main {
 
     private static void consultasPropias(Conexion conexion) {
         // Consultas adicionales
-        // Inicio consulta1: Listar las peliculas que tienen calificacion APT
-        System.out.println("    Consulta1: Listar las peliculas que tienen calificacion Apta para todo Publico");
-        String consulta1 = "SELECT * FROM pelicula WHERE calificacion = 'APT'";
+        // Inicio consulta1: Listar las peliculas que tienen calificacion ATP
+        System.out.println("    Consulta1: Listar las peliculas que tienen calificacion Apta para Todo Publico");
+        String consulta1 = "SELECT * FROM pelicula WHERE calificacion = 'ATP'";
         try (PreparedStatement statement = conexion.prepareStatement(consulta1)) {
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
