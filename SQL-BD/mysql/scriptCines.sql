@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS pelicula (
     idioma_original VARCHAR(255) NOT NULL,
     url TEXT,
     duracion TIME,
-    calificacion ENUM('APT', '+13', '+16', '+18', 'C'),
+    calificacion ENUM('ATP', '+13', '+16', '+18', 'C'),
     fecha_estreno_Argentina DATE,
     resumen TEXT,
     titulo_distribucion TEXT,
