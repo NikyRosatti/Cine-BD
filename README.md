@@ -81,6 +81,18 @@ El proyecto fue creado en el año 2024.
    java -classpath .:lib/mysql-connector-j-8.4.0.jar Main
    ```
 
+### Compilar y Ejecutar en Windows(cmd)
+```bash
+   cd <directorio-del-repo>/JavaMySql
+   #Compilar
+   javac Main.java 
+   # de otra manera: 
+   javac -cp .;lib/mysql-connector-j-8.4.0.jar Main.java conexion/Conexion.java
+
+   #Ejecutar
+   java -cp .;lib/mysql-connector-j-8.4.0.jar Main
+   ```
+
 ## Contribuciones
 Este proyecto es de código abierto y acepta contribuciones. Para contribuir, por favor sigue las guías de contribución y las mejores prácticas de desarrollo colaborativo.
 
