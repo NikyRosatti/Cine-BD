@@ -58,8 +58,12 @@ El proyecto fue creado en el año 2024.
    -- Crear las tablas
    -- (Agrega aquí las definiciones de las tablas)
    ```
+   Podemos utilizar el archivo <b>scriptCines.sql</b> para hacer este paso
+   y con el archivo <b>Query_cines.sql</b> introducimos datos genericos a las tablas.
 
-2. Configura la conexión en tu archivo configuration.properties:
+   Una idea es copiar el contenido de los archivos y correr la query desde MySQL Workbench por ejemplo.
+
+2. Configura la conexión en tu archivo <b>configuration.properties</b>:
    ```.properties
     # Configuracion de la base de datos
     db.url=jdbc:mysql://localhost/
@@ -67,24 +71,20 @@ El proyecto fue creado en el año 2024.
     db.password=LaContraseniaElegidaParaLaInstanciaDeMySqlWorkbench
    ```
 
-### Compilación
-1. Compila los archivos Java:
+### Compilación y Ejecución en Linux
+Compila los archivos Java y ejecuta la aplicación:
    ```bash
    cd <directorio-del-repo>/JavaMySql
+   # Compilar
    javac Main.java
-   ```
-
-### Ejecución
-1. Ejecuta la aplicación:
-   ```bash
-   cd <directorio-del-repo>/JavaMySql
-   java -classpath .:lib/mysql-connector-j-8.4.0.jar Main
+   # Ejecutar
+   java -cp .:lib/mysql-connector-j-8.4.0.jar Main
    ```
 
 ### Compilar y Ejecutar en Windows(cmd)
-```bash
+   ```bash
    cd <directorio-del-repo>/JavaMySql
-   #Compilar
+   # Compilar
    javac Main.java 
    # de otra manera: 
    javac -cp .;lib/mysql-connector-j-8.4.0.jar Main.java conexion/Conexion.java
