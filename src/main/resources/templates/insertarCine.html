@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insertar Cine</title>
+</head>
+<body>
+    <h1>Insertar un nuevo cine</h1>
+    <form action="/insertar-cine" method="post">
+        <label for="nombre">Nombre del Cine:</label>
+        <input type="text" id="nombre" name="nombre" required>
+        <br>
+
+        <label for="direccion">Dirección:</label>
+        <input type="text" id="direccion" name="direccion" required>
+        <br>
+
+        <label for="telefono">Teléfono:</label>
+        <input type="tel" id="telefono" name="telefono" required>
+        <br>
+
+        <button type="submit">Insertar</button>
+    </form>
+</body>
+</html>
