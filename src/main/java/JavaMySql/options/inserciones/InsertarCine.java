@@ -1,0 +1,36 @@
+package JavaMySql.options.inserciones;
+
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.Scanner;
+
+import conexion.Conexion;
+
+public class InsertarCine {
+    public static void insertarCine(Conexion conexion, String nombreCine, String direccionCine, String telefonoCine) {
+        // Pedida para el archivo Java
+        System.out.println("· Opción 1: Insertar un cine");
+        System.out.println("Opcion pedida para este archivo Java");
+
+        // Preparamos la consulta SQL
+        String consulta = "INSERT INTO cine (nombre, direccion, telefono) VALUES (?, ?, ?)";
+
+        // Preparamos la consulta de inserción de datos
+        try (PreparedStatement statement = conexion.prepareStatement(consulta)) {
+            // Establecer los valores de los parámetros
+            statement.setString(1, nombreCine);
+            statement.setString(2, direccionCine);
+            statement.setString(3, telefonoCine);
+
+            // Ejecuta la consulta de inserción
+            int filasInsertadas = statement.executeUpdate();
+            if (filasInsertadas > 0) {
+                System.out.println("Se ha insertado el cine correctamente.");
+            } else {
+                System.out.println("No se ha podido insertar ningún cine");
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al insertar datos: " + e.getMessage());
+        }
+    }
+}
